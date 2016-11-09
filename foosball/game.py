@@ -1,5 +1,5 @@
 class Game:
-    def __init__(self, name, id, mode='single'):
+    def __init__(self, name, id='test', mode='single'):
         self.name = name
         self.id = id
         self.blackScore = 0
@@ -9,4 +9,12 @@ class Game:
 
     def get_score(self):
         currentScore = redScore + " - " + blackScore
-        return
+        return currentScore
+    
+    def scoreRed(self):
+ 	self.redScore += 1
+	return
+
+    def scoreBlack(self):
+ 	self.blackScore += 1
+	return
