@@ -42,6 +42,10 @@ while True:
         fb.addGoal(g)
         print "Goals : " + str(len(fb.goals))
         print fb.getScore()
+        if game.winner != None:
+          print "We have a winner!"
+          fb.endGame()
+          fb = game.Game("TestGame")
  
     # Flush the STDOUT buffer
     print " "

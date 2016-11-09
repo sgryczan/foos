@@ -5,13 +5,20 @@
 #define PIN_DETECT2 4
 #define PIN_STATUS 13
 #define PIN_GAME 5
+#define PIN_ADDRED 6
+#define PIN_ADDBLACK 7
+
 
 int redGoal = 0, redGoalLastState=0;
 int blackGoal = 0, blackGoalLastState = 0;
+int redAddGoal = 0, redAddGoalLS = 0;
+int blackAddGoal = 0, blackAddGoalLS = 0;
 int gameButtonState = 0, gameButtonLastState = 0;
 
 
-unsigned long lastDebounceTime = 0;
+unsigned long glastDebounceTime = 0;
+unsigned long rlastDebounceTime = 0;
+unsigned long blastDebounceTime = 0;
 unsigned long debounceDelay = 50;
 
 
@@ -22,6 +29,8 @@ void setup()
   pinMode(PIN_DETECT2, INPUT);
   pinMode(PIN_STATUS, OUTPUT);
   pinMode(PIN_GAME, INPUT);
+  pinMode(PIN_ADDRED, INPUT);
+  pinMode(PIN_ADDBLACK, INPUT);
   irsend.enableIROut(38);
   irsend.mark(0);
   
@@ -34,18 +43,44 @@ void loop() {
   blackGoal = digitalRead(PIN_DETECT2);
   //gameButtonState = digitalRead(PIN_GAME);
   int gButtonReading = digitalRead(PIN_GAME);
+  int rButtonReading = digitalRead(PIN_ADDRED);
+  int bButtonReading = digitalRead(PIN_ADDBLACK);
   
   // Check if newGame button is pressed
   
   
   if (gButtonReading != gameButtonLastState) {
-    lastDebounceTime = millis();  
+    glastDebounceTime = millis();  
   }
-  if ((millis() - lastDebounceTime) > debounceDelay) {
+  if ((millis() - glastDebounceTime) > debounceDelay) {
     if (gButtonReading != gameButtonState) {
       gameButtonState = gButtonReading;
       if (gameButtonState == HIGH) {
         Serial.println("game.startNew");
+      }
+    }
+  }
+
+    if (rButtonReading != redAddGoalLS) {
+    rlastDebounceTime = millis();  
+  }
+  if ((millis() - rlastDebounceTime) > debounceDelay) {
+    if (rButtonReading != redAddGoal) {
+      redAddGoal = rButtonReading;
+      if (redAddGoal == HIGH) {
+        Serial.println("goal.red");
+      }
+    }
+  }
+  
+      if (bButtonReading != blackAddGoalLS) {
+    blastDebounceTime = millis();  
+  }
+  if ((millis() - blastDebounceTime) > debounceDelay) {
+    if (bButtonReading != blackAddGoal) {
+      blackAddGoal = bButtonReading;
+      if (blackAddGoal == HIGH) {
+        Serial.println("goal.black");
       }
     }
   }
@@ -76,6 +111,8 @@ void loop() {
   blackGoalLastState = blackGoal;
   //gameButtonLastState = gameButtonState;
   gameButtonLastState = gButtonReading;
+  redAddGoalLS = rButtonReading;
+  blackAddGoalLS = bButtonReading;
   
   digitalWrite(PIN_STATUS, !digitalRead(PIN_DETECT));
   digitalWrite(PIN_STATUS, !digitalRead(PIN_DETECT2));

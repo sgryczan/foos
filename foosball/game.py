@@ -1,12 +1,14 @@
 class Game:
-  def __init__(self, name, id='test', mode='single'):
+  def __init__(self, name, id='test', mode='single', scorelimit=3):
     self.name = name
     self.id = id
     self.blackScore = 0
     self.redScore = 0
     self.mode = mode
     self.goals = []
-
+    self.scorelimit = scorelimit
+    self.winner = None
+    self.loser = None
 
   def getScore(self):
     currentScore = "Red: " + str(self.redScore) + " Black: " + str(self.blackScore)
@@ -15,8 +17,12 @@ class Game:
   def score(self, team):
     if team == "red":
       self.redScore += 1
+      if self.redscore == self.scorelimit:
+        self.endGame()
     if team == "black":
       self.blackScore += 1
+      if self.redscore == self.scorelimit:
+        self.endGame()
 
   def isValid(self, goal_value):
     if len(self.goals) > 0:
@@ -30,12 +36,36 @@ class Game:
 
   def addGoal(self, goal_value):
     if self.isValid(goal_value):
-      self.goals.append(goal_value)
-      self.score(goal_value.team)
+      if len(self.goals) == (self.scorelimit - 1):
+        self.goals.append(goal_value)
+        self.score(goal_value.team)
+        self.endGame()
+      else:
+        self.goals.append(goal_value)
+        self.score(goal_value.team)
+
+
+  def endGame(self):
+    if redScore > blackScore:
+      self.winner = 'red'
+      self.loser = 'black'
+    else:
+      self.winner = 'black'
+      self.loser = 'red'
+    output = "Game finished. Winner: " + self.winner
+    return output
 
 class goal:
   def __init__(self, team, timestamp):
     self.team = team
     self.timestamp = timestamp
 
+class team:
+  def __init__(self, name, color):
+    self.name = name
+    self.color = color
 
+
+class player:
+  def __init__(self, name):
+    self.name = name
