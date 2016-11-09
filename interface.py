@@ -4,7 +4,9 @@ import sys
 import serial
 import time
 import foosball.game as game
+from foosball.game import goal
 import foosball.clock as clock
+from datetime import datetime as dt
 
 
 DEBUG = True
@@ -34,7 +36,11 @@ while True:
         print "event: " + event
         print "arg: " + arg
       if event == "goal":
-        fb.score(arg)
+        #fb.score(arg)
+        ts = dt.now()
+        g = goal(arg, ts)
+        fb.addGoal(g)
+        print "Goals : " + str(len(fb.goals))
         print fb.getScore()
  
     # Flush the STDOUT buffer
