@@ -13,19 +13,19 @@ void loop(){
     // Check if newGame button is pressed
   if (gameButtonState && !gameButtonLastState) {
     if (gameButtonState == HIGH) { 
-      Serial.println("Start New Game");
+      Serial.println("game.startNew");
     }
     else {
-      Serial.println(" Button off ");
+      //Serial.println(" Button off ");
     }
     delay(50);
   }
   
   gameButtonLastState = gameButtonState;
   if (gameButtonState == LOW) {
-    Serial.println("Red Team Goal!");
-    delay(1000);
-    Serial.println("Black Team Goal!"); 
-    delay(1000);
+    Serial.println("goal.red");
+    delay(750);
+    Serial.println("goal.black"); 
+    delay(750);
   }
 }
