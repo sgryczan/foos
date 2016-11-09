@@ -3,8 +3,8 @@
 import sys
 import serial
 import time
-import foosball.game as game
-import foosball.clock as clock
+#import foosball.game as game
+#import foosball.clock as clock
 
 
 ser = None
