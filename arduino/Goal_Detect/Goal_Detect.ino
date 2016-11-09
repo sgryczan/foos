@@ -33,10 +33,10 @@ void loop() {
   // Check if newGame button is pressed
   if (gameButtonState && !gameButtonLastState) {
     if (gameButtonState == HIGH) { 
-      Serial.println("Start New Game");
+      Serial.println("game.startNew");
     }
     else {
-      Serial.println(" Button off ");
+      //Serial.println(" Button off ");
     }
   }
   
@@ -45,13 +45,13 @@ void loop() {
     Serial.println("Red Beam Unbroken");
   }
   if (!redGoal && redGoalLastState) {
-    Serial.println("Red Team Goal!");  
+    Serial.println("goal.red");  
   }
   if (blackGoal && !blackGoalLastState) {
     Serial.println("Black Beam Unbroken");
   }
   if (!blackGoal && blackGoalLastState) {
-    Serial.println("Black Team Goal!");  
+    Serial.println("goal.black");  
   } 
   
   redGoalLastState = redGoal;

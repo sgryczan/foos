@@ -10,18 +10,21 @@ import foosball.clock as clock
 DEBUG = True
 
 ser = None
-fb = game.Game("testgame")
 
 ser = serial.Serial('/dev/ttyACM0', 9600)
-time.sleep(3)
+time.sleep(.1)
 print "----- Connected -----"
+dump = ser.readline()
+sys.stdout.flush()
+fb = game.Game("testgame")
 
 while True:
   try:
-    serial_data = ser.readline()
+    serial_data = ser.readline().replace('\r\n','')
    
     # Write to stdout to return data to nodeJS
     print serial_data
+
     if serial_data == "game.startNew":
       print "Starting new game."
       fb = None
@@ -31,15 +34,12 @@ while True:
       if DEBUG:
         print "event: " + event
         print "cmd: " + cmd
-        print "cmd is " + str(len(cmd)) + "long"
       if event == "goal":
-        print "We have a goal"
         fb.score(cmd)
-        print fb.redScore
-        print fb.blackScore
         print fb.getScore()
  
     # Flush the STDOUT buffer
+    print " "
     sys.stdout.flush()
   except:
     pass
