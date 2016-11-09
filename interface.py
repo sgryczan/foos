@@ -3,12 +3,15 @@
 import sys
 import serial
 import time
-from foosball import game, clock
+import foosball.game as game
+import foosball.clock as clock
+
 
 ser = None
 try:
     ser = serial.Serial('/dev/ttyACM0', 9600)
     time.sleep(3)
+    print "----- Connected -----"
 
     while True:
 	try:

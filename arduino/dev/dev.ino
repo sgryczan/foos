@@ -22,9 +22,10 @@ void loop(){
   }
   
   gameButtonLastState = gameButtonState;
-  
-  Serial.println("Red Team Goal!");
-  delay(1000);
-  Serial.println("Black Team Goal!"); 
-  delay(1000);
+  if (gameButtonState == LOW) {
+    Serial.println("Red Team Goal!");
+    delay(1000);
+    Serial.println("Black Team Goal!"); 
+    delay(1000);
+  }
 }

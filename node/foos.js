@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn,
-py = spawn('python', ['../arduino/interface.py']),
+py = spawn('python', ['../interface.py']),
 dataString = '';
 
 
