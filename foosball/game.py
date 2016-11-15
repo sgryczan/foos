@@ -17,12 +17,8 @@ class Game:
   def score(self, team):
     if team == "red":
       self.redScore += 1
-      if self.redscore == self.scorelimit:
-        self.endGame()
     if team == "black":
       self.blackScore += 1
-      if self.redscore == self.scorelimit:
-        self.endGame()
 
   def isValid(self, goal_value):
     if len(self.goals) > 0:
@@ -39,14 +35,15 @@ class Game:
       if len(self.goals) == (self.scorelimit - 1):
         self.goals.append(goal_value)
         self.score(goal_value.team)
-        self.endGame()
+        out = self.endGame()
+        return out
       else:
         self.goals.append(goal_value)
         self.score(goal_value.team)
 
 
   def endGame(self):
-    if redScore > blackScore:
+    if self.redScore > self.blackScore:
       self.winner = 'red'
       self.loser = 'black'
     else:

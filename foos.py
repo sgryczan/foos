@@ -20,36 +20,32 @@ fb = game.Game("testgame")
 
 ser.flushInput()
 while True:
-  try:
-    serial_data = ser.readline().replace('\r\n','')
+  serial_data = ser.readline().replace('\r\n','')
    
-    # Write to stdout to return data to nodeJS
-    print serial_data
+  # Write to stdout to return data to nodeJS
+  print repr(serial_data)
 
-    if serial_data == "game.startNew":
-      print "Starting new game."
-      fb = None
-      fb = game.Game("testgame")
-    else:
-      event, arg = serial_data.replace('\r\n','').split(".")
-      if DEBUG:
-        print "event: " + event
-        print "arg: " + arg
-      if event == "goal":
-        #fb.score(arg)
-        ts = dt.now()
-        g = goal(arg, ts)
-        fb.addGoal(g)
-        print "Goals : " + str(len(fb.goals))
-        print fb.getScore()
-        if game.winner != None:
-          print "We have a winner!"
-          fb.endGame()
-          fb = game.Game("TestGame")
+  if serial_data == "game.startNew":
+    print "Starting new game."
+    fb = None
+    fb = game.Game("testgame")
+  else:
+    event, arg = serial_data.replace('\r\n','').split(".")
+    if DEBUG:
+      print "event: " + event
+      print "arg: " + arg
+    if event == "goal":
+      #fb.score(arg)
+      ts = dt.now()
+      g = goal(arg, ts)
+      fb.addGoal(g)
+      print "Goals : " + str(len(fb.goals))
+      print fb.getScore()
+      if fb.winner:
+        print "We have a winner!"
+        fb.endGame()
+        fb = game.Game("TestGame")
  
-    # Flush the STDOUT buffer
-    print " "
-    sys.stdout.flush()
-  except:
-    pass
-
+  # Flush the STDOUT buffer
+  print " "
+  sys.stdout.flush()
