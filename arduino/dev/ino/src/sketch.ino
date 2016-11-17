@@ -9,7 +9,7 @@ void setup(){
 
 void loop(){
     Serial.println("goal.red");
-    delay(1500);
+    delay(3500);
     Serial.println("goal.black"); 
-    delay(1500);
+    delay(3500);
 }
