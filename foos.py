@@ -49,7 +49,7 @@ while True:
         print "We have a winner!"
         print fb.endGame()
         jgame = jsp.dumps(fb)
-        print "Game Dump::" + jgame
+        print "Game.Dump::" + jgame
         fb = game.Game("TestGame")
  
   # Flush the STDOUT buffer
