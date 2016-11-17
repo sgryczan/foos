@@ -3,6 +3,7 @@
 import sys
 import serial
 import time
+import jsonpickle as jsp
 import foosball.game as game
 from foosball.game import goal
 import foosball.clock as clock
@@ -38,12 +39,17 @@ while True:
       #fb.score(arg)
       ts = dt.now()
       g = goal(arg, ts)
+      g_js = jsp.dumps(g)
+      print g_js
       fb.addGoal(g)
       print "Goals : " + str(len(fb.goals))
+  
       print fb.getScore()
       if fb.winner:
         print "We have a winner!"
-        fb.endGame()
+        print fb.endGame()
+        jgame = jsp.dumps(fb)
+        print "Game Dump::" + jgame
         fb = game.Game("TestGame")
  
   # Flush the STDOUT buffer
