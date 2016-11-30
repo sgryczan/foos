@@ -43,6 +43,7 @@ class Game:
 
 
   def endGame(self):
+    #self.convertGoals()
     if self.redScore > self.blackScore:
       self.winner = 'red'
       self.loser = 'black'
@@ -52,10 +53,20 @@ class Game:
     output = "Game finished. Winner: " + self.winner
     return output
 
+  def convertGoals(self):
+    for i in self.goals:
+      i.convertTS()
+
 class goal:
   def __init__(self, team, timestamp):
     self.team = team
     self.timestamp = timestamp
+
+  def convertTS(self):
+    self.timestamp = self.timestamp.isoformat()
+
+  def isoformat(self):
+    return self.timestamp.isoformat()
 
 class team:
   def __init__(self, name, color):

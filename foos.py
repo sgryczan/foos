@@ -39,15 +39,18 @@ while True:
       #fb.score(arg)
       ts = dt.now()
       g = goal(arg, ts)
-      g_js = jsp.dumps(g)
-      print g_js
       fb.addGoal(g)
+      s = goal(arg, ts)
+      s.convertTS()
+      g_js = jsp.dumps(s)
+      print g_js
       print "Goals : " + str(len(fb.goals))
   
       print fb.getScore()
       if fb.winner:
         print "We have a winner!"
         print fb.endGame()
+        fb.convertGoals()
         jgame = jsp.dumps(fb)
         print "Game.Dump::" + jgame
         fb = game.Game("TestGame")
