@@ -1,17 +1,17 @@
 var spawn = require('child_process').spawn,
 py = spawn('python', ['../foos.py']),
+MongoServer = require('mongodb').Server,
 MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
 objectID = require('mongodb').ObjectID,
 dbUrl = 'mongodb://localhost:27017/foos';
 
 
-MongoClient.connect(dbUrl, function(db, err) {
-  if(!err) {
-    console.log('Connected to Database.');
-    // db.close();
-  }
-  else { return console.dir(err)};
+var mongoClient = new MongoClient(new MongoServer('localhost', 27017));
+mongoClient.open(function(err, mongoClient) {
+  var foosdb = mongoClient.db("foos");
+  console.log('Connected to Database.');
+  mongoClient.close();
 });
 
 dataString = '';
