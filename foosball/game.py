@@ -9,6 +9,9 @@ class Game:
     self.scorelimit = scorelimit
     self.winner = None
     self.loser = None
+    self.startTime = None
+    self.endTime = None
+    self.playTime = None	
 
   def getScore(self):
     currentScore = "Red: " + str(self.redScore) + " Black: " + str(self.blackScore)
@@ -32,14 +35,12 @@ class Game:
 
   def addGoal(self, goal_value):
     if self.isValid(goal_value):
-      if len(self.goals) == (self.scorelimit - 1):
-        self.goals.append(goal_value)
-        self.score(goal_value.team)
+      self.goals.append(goal_value)
+      self.score(goal_value.team)
+      
+      if self.blackScore == self.scorelimit or self.redScore == self.scorelimit:
         out = self.endGame()
         return out
-      else:
-        self.goals.append(goal_value)
-        self.score(goal_value.team)
 
 
   def endGame(self):
