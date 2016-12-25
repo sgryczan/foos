@@ -7,12 +7,32 @@ objectID = require('mongodb').ObjectID,
 dbUrl = 'mongodb://localhost:27017/foos';
 
 
-var mongoClient = new MongoClient(new MongoServer('localhost', 27017));
-mongoClient.open(function(err, mongoClient) {
-  var foosdb = mongoClient.db("foos");
-  console.log('Connected to Database.');
-  mongoClient.close();
-});
+
+
+
+function insertDocument(jss) {
+  MongoClient.connect(dbUrl, function(err, db) {
+    if (err) {
+      console.log('Unable to connect to DB!', err);
+    }
+    else {
+      console.log('Connected to Database.');
+
+      var collection = db.collection('foos');
+
+      collection.insert(jss, function (err, result) {
+        if (err) { 
+          console.log(err);
+        }
+        else {
+          console.log('Inserted doc into db');
+        }
+        db.close();
+     });
+    }
+  });
+}
+
 
 dataString = '';
 
@@ -22,6 +42,7 @@ py.stdout.on('data', function(data) {
       js = dataString.split("::")[1];
       jss = JSON.parse(js);
       console.log(jss);
+      insertDocument(jss);
       // console.log('output: ' + data.toString());
   }
   else if(dataString.indexOf("---") != -1) {
