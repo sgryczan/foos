@@ -4,10 +4,27 @@ MongoServer = require('mongodb').Server,
 MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
 objectID = require('mongodb').ObjectID,
+app = require('express')(),
+http = require('http').Server(app),
+io = require('socket.io')(http),
 dbUrl = 'mongodb://localhost:27017/foos';
 
+// Load HTML source
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    console.log(msg);
+    io.emit('chat message', msg);
+  });
+});
 
 
+http.listen(3000, function(){
+  console.log('Listening on *:3000');
+});
 
 
 function insertDocument(jss) {
@@ -44,14 +61,17 @@ py.stdout.on('data', function(data) {
       console.log(jss);
       insertDocument(jss);
       // console.log('output: ' + data.toString());
+      io.emit('chat message', dataString);
   }
   else if(dataString.indexOf("---") != -1) {
       console.log('output: ' + data.toString());
+      io.emit('chat message', dataString);
   }
   else {
       // jss = JSON.parse(dataString);
       // console.log(jss);
       console.log('output: ' + data.toString());
+      io.emit('chat message', dataString);
   }
 });
 
