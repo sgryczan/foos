@@ -42,7 +42,10 @@ while True:
       fb.addGoal(g)
       s = goal(arg, ts)
       s.convertTS()
-      g_js = jsp.dumps(s)
+
+      # This flag removes python type fragments from resulting object
+      g_js = jsp.dumps(s, unpicklable=False)
+      g_js2 = jsp.encode(g_js, unpicklable=False)
       print g_js
       print "Goals : " + str(len(fb.goals))
   
@@ -51,7 +54,7 @@ while True:
         print "We have a winner!"
         print fb.endGame()
         fb.convertGoals()
-        jgame = jsp.dumps(fb)
+        jgame = jsp.dumps(fb, unpicklable=False)
         print "Game.Dump::" + jgame
         fb = game.Game("TestGame")
  

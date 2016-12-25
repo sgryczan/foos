@@ -20,11 +20,16 @@ py.stdout.on('data', function(data) {
   dataString = data.toString();
   if(dataString.indexOf("Game.Dump::") != -1) { 
       js = dataString.split("::")[1];
-      jss = JSON.stringify(js);
+      jss = JSON.parse(js);
       console.log(jss);
+      // console.log('output: ' + data.toString());
+  }
+  else if(dataString.indexOf("---") != -1) {
       console.log('output: ' + data.toString());
   }
   else {
+      // jss = JSON.parse(dataString);
+      // console.log(jss);
       console.log('output: ' + data.toString());
   }
 });
