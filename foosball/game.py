@@ -35,6 +35,7 @@ class Game:
 
   def addGoal(self, goal_value):
     if self.isValid(goal_value):
+      goal_value.valid = self.isValid(goal_value)
       self.goals.append(goal_value)
       self.score(goal_value.team)
       
@@ -59,15 +60,20 @@ class Game:
       i.convertTS()
 
 class goal:
-  def __init__(self, team, timestamp):
+  def __init__(self, team, timestamp, valid=False):
     self.team = team
     self.timestamp = timestamp
+    self.valid = valid
 
   def convertTS(self):
     self.timestamp = self.timestamp.isoformat()
 
   def isoformat(self):
     return self.timestamp.isoformat()
+ 
+  def validate(self):
+    self.valid = True
+
 
 class team:
   def __init__(self, name, color):

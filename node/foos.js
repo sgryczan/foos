@@ -67,11 +67,18 @@ py.stdout.on('data', function(data) {
       console.log('output: ' + data.toString());
       io.emit('chat message', dataString);
   }
+  else if(dataString.indexOf("goal") != -1) {
+      if(dataString.indexOf("\"valid\": true") != -1) {
+          console.log('output: ' + data.toString());
+          io.emit('chat message', dataString);
+
+      }
+  }
   else {
       // jss = JSON.parse(dataString);
       // console.log(jss);
-      console.log('output: ' + data.toString());
-      io.emit('chat message', dataString);
+      // console.log('output: ' + data.toString());
+      // io.emit('chat message', dataString);
   }
 });
 

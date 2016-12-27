@@ -42,9 +42,9 @@ while True:
       fb.addGoal(g)
       s = goal(arg, ts)
       s.convertTS()
-
+      
       # This flag removes python type fragments from resulting object
-      g_js = jsp.dumps(s, unpicklable=False)
+      g_js = jsp.dumps(g, unpicklable=False)
       g_js2 = jsp.encode(g_js, unpicklable=False)
       print g_js
       print "Goals : " + str(len(fb.goals))
