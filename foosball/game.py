@@ -1,5 +1,5 @@
 class Game:
-  def __init__(self, name, id='test', mode='single', scorelimit=3):
+  def __init__(self, name, id='test', mode='single', scorelimit=10):
     self.name = name
     self.id = id
     self.blackScore = 0
