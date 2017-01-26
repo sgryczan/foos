@@ -14,7 +14,7 @@ DEBUG = True
 
 ser = None
 
-ser = serial.Serial('/dev/ttyACM0', 9600)
+ser = serial.Serial('/dev/ttyACM2', 9600)
 time.sleep(.1)
 print "----- Connected -----"
 fb = game.Game("testgame")

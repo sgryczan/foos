@@ -1,4 +1,3 @@
-#include <IRremote.h>
 
 #define PIN_IR 3
 #define PIN_DETECT 2
@@ -22,7 +21,6 @@ unsigned long blastDebounceTime = 0;
 unsigned long debounceDelay = 50;
 
 
-IRsend irsend;
 void setup()
 {
   pinMode(PIN_DETECT, INPUT);
@@ -31,9 +29,11 @@ void setup()
   pinMode(PIN_GAME, INPUT);
   pinMode(PIN_ADDRED, INPUT);
   pinMode(PIN_ADDBLACK, INPUT);
-  irsend.enableIROut(38);
-  irsend.mark(0);
   
+  digitalWrite(PIN_DETECT, HIGH);
+  digitalWrite(PIN_DETECT2, HIGH);
+
+
   Serial.begin(9600);
 }
 

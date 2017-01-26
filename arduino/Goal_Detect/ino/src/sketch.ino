@@ -95,13 +95,13 @@ void loop() {
   
   // Check if either Sensor beam is broken
   if (redGoal && !redGoalLastState) {
-    Serial.println("Red Beam Unbroken");
+    Serial.println("Red Beam Unbroken.");
   }
   if (!redGoal && redGoalLastState) {
     Serial.println("goal.red");  
   }
   if (blackGoal && !blackGoalLastState) {
-    Serial.println("Black Beam Unbroken");
+    Serial.println("Black Beam Unbroken.");
   }
   if (!blackGoal && blackGoalLastState) {
     Serial.println("goal.black");  
