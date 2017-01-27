@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn,
-py = spawn('python', ['../foos.py']),
+py = spawn('python', ['/home/pi/Documents/github/foos/foos.py']),
 MongoServer = require('mongodb').Server,
 MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
