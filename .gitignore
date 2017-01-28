@@ -4,4 +4,4 @@
 *.so
 *~
 *node_modules*
-*/ino
+*/ino/*
