@@ -28,8 +28,8 @@ while True:
 
   if serial_data == "game.startNew":
     print "Starting new game."
-    fb = None
-    fb = game.Game("testgame")
+    # fb = None
+    # fb = game.Game("testgame")
   else:
     event, arg = serial_data.replace('\r\n','').split(".")
     if DEBUG:
