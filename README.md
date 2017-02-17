@@ -10,5 +10,8 @@ Web - FrontEnd written in using NodeJS
 
 Database - MongoDB. Game Data is passed from Python to NodeJS in JSON format to be logged in Mongo.
 
+Docker runtime params:
+
+docker run --rm -itd --name foos -p 3000:3000 --device=/dev/ttyACM0 foos:latest
 
 
