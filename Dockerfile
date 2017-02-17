@@ -11,4 +11,5 @@ RUN npm install
 RUN mkdir /app
 COPY . /app
 WORKDIR /app/node/
-CMD ["node", "test.js"]
+EXPOSE 3000
+CMD ["node", "foos.js"]
