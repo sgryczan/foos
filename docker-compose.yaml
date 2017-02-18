@@ -1,0 +1,39 @@
+version: '3'
+services:
+
+  foos-app:
+    image: foos:latest
+    restart: on-failure
+    ports:
+      - 3000:3000
+    links:
+      - mongo
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+
+  foos-db:
+    image: mangoraft/mongodb-arm
+    restart: always
+    environment:
+      AUTH=no
+    ports:
+      - 27017:27017
+      - 28017:28017
+    volumes:
+      - /var/lib/mongodb:/var/lib/mongodb:rw
+      - /var/log/mongodb/:/var/log/mongodb:rw
+
+  portainer:
+    image: portainer/portainer
+    restart: on-failure
+    ports:
+      - 8091:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # command:
+    #   - -H
+    #   - unix:///var/run/docker.sock
+    # deploy:
+    #   placement:
+    #     constraints:
+    #       - node.role == manager

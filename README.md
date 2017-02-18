@@ -12,6 +12,8 @@ Database - MongoDB. Game Data is passed from Python to NodeJS in JSON format to 
 
 Docker runtime params:
 
-docker run --rm -itd --name foos -p 3000:3000 --device=/dev/ttyACM0 foos:latest
+db:
+docker run -d --rm -p 27017:27017 -p 28017:28017 -e AUTH=no -v /var/lib/mongodb/:/data/db/ --name=foos-db mangoraft/mongodb-arm
 
-
+app:
+docker run --rm -itd --name foos-app -p 3000:3000 --link foos-db --device=/dev/ttyACM0 foos:latest
