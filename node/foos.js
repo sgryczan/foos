@@ -7,7 +7,7 @@ objectID = require('mongodb').ObjectID,
 app = require('express')(),
 http = require('http').Server(app),
 io = require('socket.io')(http),
-dbUrl = 'mongodb://localhost:27017/foos';
+dbUrl = 'mongodb://foos-db:27017/foos';
 
 // Load HTML source
 app.get('/', function(req, res){

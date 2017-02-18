@@ -2,12 +2,12 @@ version: '3'
 services:
 
   foos-app:
-    image: foos:latest
+    image: foos-app:latest
     restart: on-failure
     ports:
       - 3000:3000
     links:
-      - mongo
+      - foos-db
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
 
@@ -15,7 +15,7 @@ services:
     image: mangoraft/mongodb-arm
     restart: always
     environment:
-      AUTH=no
+      - AUTH=no
     ports:
       - 27017:27017
       - 28017:28017
