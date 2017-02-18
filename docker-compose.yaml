@@ -20,8 +20,7 @@ services:
       - 27017:27017
       - 28017:28017
     volumes:
-      - /var/lib/mongodb:/var/lib/mongodb:rw
-      - /var/log/mongodb/:/var/log/mongodb:rw
+      - /var/lib/mongodb:/data/db:rw
 
   portainer:
     image: portainer/portainer
