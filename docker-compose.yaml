@@ -4,6 +4,9 @@ services:
   foos-app:
     image: foos-app:latest
     restart: on-failure
+    environment:
+      - SET_CONTAINER_TIMEZONE=true
+      - CONTAINER_TIMEZONE=America/Denver
     ports:
       - 3000:3000
     links:
@@ -16,6 +19,8 @@ services:
     restart: always
     environment:
       - AUTH=no
+      - SET_CONTAINER_TIMEZONE=true
+      - CONTAINER_TIMEZONE=America/Denver
     ports:
       - 27017:27017
       - 28017:28017
@@ -25,6 +30,8 @@ services:
   portainer:
     image: portainer/portainer
     restart: on-failure
+    environment:
+      - TZ=America/Denver
     ports:
       - 8091:9000
     volumes:
