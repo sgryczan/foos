@@ -4,28 +4,26 @@ services:
   foos-app:
     image: foos-app:latest
     restart: on-failure
-    environment:
-      - SET_CONTAINER_TIMEZONE=true
-      - CONTAINER_TIMEZONE=America/Denver
     ports:
       - 3000:3000
     links:
       - foos-db
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
+    volumes:
+      - /usr/share/zoneinfo/America/Denver:/etc/localtime:ro
 
   foos-db:
     image: mangoraft/mongodb-arm
     restart: always
     environment:
       - AUTH=no
-      - SET_CONTAINER_TIMEZONE=true
-      - CONTAINER_TIMEZONE=America/Denver
     ports:
       - 27017:27017
       - 28017:28017
     volumes:
       - /var/lib/mongodb:/data/db:rw
+      - /usr/share/zoneinfo/America/Denver:/etc/localtime:ro
 
   portainer:
     image: portainer/portainer
