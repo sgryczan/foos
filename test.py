@@ -3,6 +3,7 @@
 import sys
 import serial
 import time
+import json
 import jsonpickle as jsp
 import foosball.game as game
 from foosball.game import goal
@@ -58,8 +59,7 @@ while True:
       g_js2 = jsp.encode(g_js, unpicklable=False)
       print g_js
       print "Goals : " + str(len(fb.goals))
-
-      print fb.getScore()
+      print "Score::" + json.dumps(fb.getScore())
       if fb.winner:
         print "We have a winner!"
         print fb.endGame()

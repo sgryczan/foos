@@ -74,7 +74,7 @@ dataString = '';
 py.stdout.on('data', function(data) {
   dataString = data.toString();
   if(dataString.indexOf("Game.Dump::") != -1) {
-      js = dataString.split("::")[1];
+      js = dataString.split("Dump::")[1];
       jss = JSON.parse(js);
       console.log(jss);
       insertDocument(jss);
@@ -87,16 +87,18 @@ py.stdout.on('data', function(data) {
   }
   else if(dataString.indexOf("goal") != -1) {
       if(dataString.indexOf("\"valid\": true") != -1) {
+          score = dataString.split("Score::")[1];
+          io.emit('scores', score);
           console.log('output: ' + data.toString());
           io.emit('chat message', dataString);
 
       }
   }
   else {
-       jss = JSON.parse(dataString);
-       console.log(jss);
-       console.log('output: ' + data.toString());
-       io.emit('chat message', dataString);
+       //jss = JSON.parse(dataString);
+       //console.log(jss);
+       //console.log('output: ' + data.toString());
+       //io.emit('chat message', dataString);
   }
 });
 

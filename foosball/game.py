@@ -14,7 +14,7 @@ class Game:
     self.playTime = None	
 
   def getScore(self):
-    currentScore = "Red: " + str(self.redScore) + " Black: " + str(self.blackScore)
+    currentScore = {'Red':self.redScore, 'Black':self.blackScore}
     return currentScore
     
   def score(self, team):
