@@ -3,6 +3,7 @@
 import sys
 import serial
 import time
+import json
 import jsonpickle as jsp
 import foosball.game as game
 from foosball.game import goal
@@ -18,11 +19,13 @@ ser = serial.Serial('/dev/ttyACM0', 9600)
 time.sleep(.1)
 print "----- Connected -----"
 fb = game.Game("testgame")
+lastgoal = "black"
 
 ser.flushInput()
 while True:
   serial_data = ser.readline().replace('\r\n','')
-   
+
+
   # Write to stdout to return data to nodeJS
   print repr(serial_data)
 
@@ -42,14 +45,13 @@ while True:
       fb.addGoal(g)
       s = goal(arg, ts)
       s.convertTS()
-      
+
       # This flag removes python type fragments from resulting object
       g_js = jsp.dumps(g, unpicklable=False)
       g_js2 = jsp.encode(g_js, unpicklable=False)
       print g_js
       print "Goals : " + str(len(fb.goals))
-  
-      print fb.getScore()
+      print "Score::" + json.dumps(fb.getScore())
       if fb.winner:
         print "We have a winner!"
         print fb.endGame()
@@ -57,7 +59,7 @@ while True:
         jgame = jsp.dumps(fb, unpicklable=False)
         print "Game.Dump::" + jgame
         fb = game.Game("TestGame")
- 
+
   # Flush the STDOUT buffer
   print " "
   sys.stdout.flush()

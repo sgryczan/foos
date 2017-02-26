@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn,
-py = spawn('python', ['/app/test.py']),
+py = spawn('python', ['/app/foos.py']),
 MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
 cookieParser = require('cookie-parser'),

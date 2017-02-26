@@ -9,7 +9,7 @@ services:
     links:
       - db
     #devices:
-     # - /dev/ttyACM0:/dev/ttyACM0
+      #- /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /usr/share/zoneinfo/America/Denver:/etc/localtime:ro
 

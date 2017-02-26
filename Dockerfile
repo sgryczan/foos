@@ -7,10 +7,9 @@ RUN apk add --no-cache \
     build-base \
     nodejs
 RUN pip install pyserial jsonpickle
-RUN npm config set registry http://registry.npmjs.org
 RUN mkdir /app
 COPY . /app
 WORKDIR /app/node/
-RUN npm install
+RUN npm install socket.io
 EXPOSE 3000
 CMD ["node", "foos.js"]
