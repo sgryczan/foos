@@ -10,6 +10,6 @@ RUN pip install pyserial jsonpickle
 RUN mkdir /app
 COPY . /app
 WORKDIR /app/node/
-RUN npm install socket.io
+RUN npm install
 EXPOSE 3000
 CMD ["node", "foos.js"]
