@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn,
-py = spawn('python', ['/app/foos.py']),
+py = spawn('python', ['/app/test.py']),
 MongoServer = require('mongodb').Server,
 MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
@@ -10,8 +10,24 @@ io = require('socket.io')(http),
 dbUrl = 'mongodb://foos-db:27017/foos';
 
 // Load HTML source
-app.get('/', function(req, res){
+app.get('/debug', function(req, res){
   res.sendFile(__dirname + '/index.html');
+});
+
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+  next();
+});
+
+app.use(express.static(__dirname + '/views'));
+
+app.get('/', function (req, res) {
+  res.sendFile(path.resolve(__dirname + '/views/index.html'));
 });
 
 io.on('connection', function(socket){
@@ -38,7 +54,7 @@ function insertDocument(jss) {
       var collection = db.collection('foos');
 
       collection.insert(jss, function (err, result) {
-        if (err) { 
+        if (err) {
           console.log(err);
         }
         else {
@@ -55,7 +71,7 @@ dataString = '';
 
 py.stdout.on('data', function(data) {
   dataString = data.toString();
-  if(dataString.indexOf("Game.Dump::") != -1) { 
+  if(dataString.indexOf("Game.Dump::") != -1) {
       js = dataString.split("::")[1];
       jss = JSON.parse(js);
       console.log(jss);
@@ -85,5 +101,3 @@ py.stdout.on('data', function(data) {
 py.stdout.on('end', function() {
   console.log(dataString);
 });
-
-

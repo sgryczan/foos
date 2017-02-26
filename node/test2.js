@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn,
-py = spawn('python', ['Serial_9600.py']),
+py = spawn('python', ['test_out.py']),
 dataString = '';
 
 

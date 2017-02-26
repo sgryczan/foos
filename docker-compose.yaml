@@ -1,19 +1,19 @@
 version: '3'
-services:
 
-  foos-app:
-    image: foos-app:latest
+services:
+  app:
+    build: ./node
     restart: on-failure
     ports:
       - 3000:3000
     links:
-      - foos-db
+      - db
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
     volumes:
       - /usr/share/zoneinfo/America/Denver:/etc/localtime:ro
 
-  foos-db:
+  db:
     image: mangoraft/mongodb-arm
     restart: always
     environment:
