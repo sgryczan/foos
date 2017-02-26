@@ -16,7 +16,12 @@
     "url": "https://github.com/sgryczan/foos/issues"
   },
   "dependencies": {
-    "mongodb": "^1.4.40"
+    "body-parser": "^1.16.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.1",
+    "method-override": "^2.3.7",
+    "mongodb": "^1.4.40",
+    "socket.io": "^1.7.3"
   },
   "devDependencies": {},
   "keywords": [

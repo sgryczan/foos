@@ -1,5 +1,8 @@
 FROM armhf/alpine:latest
 
+RUN mkdir /app
+COPY . /app
+WORKDIR /app/node/
 RUN apk add --no-cache \
     python \
     python-dev \
@@ -8,8 +11,5 @@ RUN apk add --no-cache \
     nodejs
 RUN pip install pyserial jsonpickle
 RUN npm install
-RUN mkdir /app
-COPY . /app
-WORKDIR /app/node/
 EXPOSE 3000
 CMD ["node", "foos.js"]
