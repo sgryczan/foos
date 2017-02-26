@@ -1,16 +1,17 @@
 var spawn = require('child_process').spawn,
 py = spawn('python', ['/app/test.py']),
-MongoServer = require('mongodb').Server,
 MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
-objectID = require('mongodb').ObjectID,
 cookieParser = require('cookie-parser'),
 bodyParser = require('body-parser'),
 methodOverride = require('method-override'),
-app = require('express')(),
+server = require('express'),
+app = server(),
 http = require('http').Server(app),
 io = require('socket.io')(http),
 dbUrl = 'mongodb://foos-db:27017/foos';
+
+io.set('transports', ['polling']);
 
 // Load HTML source
 app.get('/debug', function(req, res){
@@ -27,7 +28,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(__dirname + '/views'));
+app.use(server.static(__dirname + '/views'));
 
 app.get('/', function (req, res) {
   res.sendFile(path.resolve(__dirname + '/views/index.html'));
@@ -53,9 +54,7 @@ function insertDocument(jss) {
     }
     else {
       console.log('Connected to Database.');
-
       var collection = db.collection('foos');
-
       collection.insert(jss, function (err, result) {
         if (err) {
           console.log(err);
@@ -94,10 +93,10 @@ py.stdout.on('data', function(data) {
       }
   }
   else {
-      // jss = JSON.parse(dataString);
-      // console.log(jss);
-      // console.log('output: ' + data.toString());
-      // io.emit('chat message', dataString);
+       jss = JSON.parse(dataString);
+       console.log(jss);
+       console.log('output: ' + data.toString());
+       io.emit('chat message', dataString);
   }
 });
 

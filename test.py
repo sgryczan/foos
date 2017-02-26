@@ -28,7 +28,7 @@ while True:
   if lastgoal == "black":
     serial_data = "goal.red"
     lastgoal = "red"
-  elif lastgoal == "red"
+  elif lastgoal == "red":
     serial_data = "goal.black"
     lastgoal = "black"
 
