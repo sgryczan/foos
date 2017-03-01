@@ -9,7 +9,7 @@ server = require('express'),
 app = server(),
 http = require('http').Server(app),
 io = require('socket.io')(http),
-dbUrl = 'mongodb://foos-db:27017/foos';
+dbUrl = 'mongodb://db:27017/foos';
 
 io.set('transports', ['polling']);
 
@@ -84,8 +84,9 @@ py.stdout.on('data', function(data) {
       jss = JSON.parse(js);
       console.log(jss);
       insertDocument(jss);
-      // console.log('output: ' + data.toString());
+      console.log('output: ' + data.toString());
       io.emit('chat message', dataString);
+      io.emit('message', "New Game");
   }
   else if(dataString.indexOf("---") != -1) {
       console.log('output: ' + data.toString());
@@ -94,7 +95,7 @@ py.stdout.on('data', function(data) {
   else if(dataString.indexOf("goal") != -1) {
       if(dataString.indexOf("\"valid\": true") != -1) {
           score = dataString.split("Score::")[1];
-          io.emit('scores', score);
+          io.emit('scores', score.split(/\r?\n/)[0]);
           console.log('output: ' + data.toString());
           io.emit('chat message', dataString);
 

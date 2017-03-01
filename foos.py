@@ -1,6 +1,8 @@
 #!/usr/bin/python2.7
 
 import sys
+import random
+import os
 import serial
 import time
 import json
@@ -12,21 +14,32 @@ from datetime import datetime as dt
 
 
 DEBUG = True
+TEST = os.getenv('TEST', 0)
 
 ser = None
-
 ser = serial.Serial('/dev/ttyACM0', 9600)
 time.sleep(.1)
+
 print "----- Connected -----"
 fb = game.Game("testgame")
 lastgoal = "black"
 
 ser.flushInput()
 while True:
-  serial_data = ser.readline().replace('\r\n','')
-
+    
+  if TEST == '1':
+    rnd = random.randrange(2) 
+    if rnd == 1:
+      serial_data = "goal.red"
+      lastgoal = "red"
+    elif rnd == 0:
+      serial_data = "goal.black"
+      lastgoal = "black"
+  else:
+    serial_data = ser.readline().replace('\r\n','')
 
   # Write to stdout to return data to nodeJS
+
   print repr(serial_data)
 
   if serial_data == "game.startNew":
@@ -50,10 +63,10 @@ while True:
       g_js = jsp.dumps(g, unpicklable=False)
       g_js2 = jsp.encode(g_js, unpicklable=False)
       print g_js
-      print "Goals : " + str(len(fb.goals))
+      # print str(len(fb.goals))
       print "Score::" + json.dumps(fb.getScore())
       if fb.winner:
-        print "We have a winner!"
+        #print "We have a winner!"
         print fb.endGame()
         fb.convertGoals()
         jgame = jsp.dumps(fb, unpicklable=False)
